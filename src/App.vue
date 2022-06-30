@@ -1,28 +1,32 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Header></Header>
+    <!-- 使用路由 -->
+    <router-view></router-view>
+    <!-- 这里使用v-show是为了提高性能,因为v-if会不断去修改dom元素影响性能 -->
+    <Footer v-show="$route.meta.show"></Footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from "./components/Header/shop-header.vue"
+import Footer from "./components/Footer/shop-footer.vue"
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name:'App',
+  components:{
+    Header,
+    Footer
+  },
+  mounted(){
+    // 通知store
+    this.$store.dispatch('categoryList')
+    this.$store.dispatch('bannerList')
+    this.$store.dispatch('floorList')
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
